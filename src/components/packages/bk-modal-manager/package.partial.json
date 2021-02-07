@@ -1,0 +1,16 @@
+{
+    "version": "0.18.2",
+    "description": "A manager to display modals within the page in an intelligent way allowing consumers to avoid repeated code and only worry about the contents of the modal.",
+    "scripts": {
+        "docs": "esdoc -c ./config/esdoc.development.json"
+    },
+    "peerDependencies": {
+        "iac-reporting": "^2.0.7",
+        "iac-webtooltab-utils": "^2.1.1",
+        "iac-plug-loader": "^0.13.2"
+    },
+    "devDependencies": {
+        "esdoc": "0.4.7",
+        "esdoc-es7-plugin": "0.0.3"
+    }
+}
