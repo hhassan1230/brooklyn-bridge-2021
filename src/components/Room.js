@@ -9,21 +9,11 @@ const Room = (props) => {
     if (props.type == "photo") {
         return (
             // <a-sky src={props.urlImg} title={props.title} alt={props.title} rotation={props.rotation}></a-sky> 
-            <a-sky src="#test" title={props.title} alt={props.title} rotation={props.rotation}></a-sky> 
+            <a-sky src={props.id} title={props.title} alt={props.title} rotation={props.rotation}></a-sky> 
         );
     } else {
-        return (
-            <Entity>
-
-  
-            <Entity material="shader: flat; src: #videoBunny"
-                    geometry="primitive: plane; width: 160; height: 90"
-                    position="0 -60 -200"
-                    rotation="0 -35 0"
-                    play-on-click
-                    visible="false">
-            </Entity>
-        </Entity>
+        return (""
+       
         );
     }
 };
@@ -36,6 +26,7 @@ const Room = (props) => {
 // };
 
 Room.defaultProps = {
+    id: '#test',
     color: 'blue',
     classes: "Room",
     type: "photo",

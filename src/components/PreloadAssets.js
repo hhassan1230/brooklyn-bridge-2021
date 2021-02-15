@@ -1,22 +1,59 @@
 import 'aframe';
 import 'aframe-particle-system-component';
 import { Entity, Scene } from 'aframe-react';
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
 
-const PreloadAssets = (props) => 
-	<>
-	<a-assets>
-          if (props.assets) { 
-            return props.assets.map(item =>{
-                return item;
-            })
-          }
-          else {
-           return "";
-          }
-      </a-assets>
-      </>;
+
+class PreloadAssets extends Component {
+
+constructor(props) {
+  super(props);
+
+}
+
+  getMappedData() {
+      const { assets } = this.props;
+      if (assets) { 
+        return assets.map(item =>{
+            return <>{item}</>;
+        })
+      }
+      else {
+       return "";
+      }
+}
+
+
+    render() {
+
+        return (
+            <>
+               <a-assets>
+
+                  {this.getMappedData()}
+
+                </a-assets>
+            </>
+        );
+    }
+};
+
+export default (PreloadAssets);
+
+
+
+
+
+
+// const PreloadAssets = (props) => 
+// 	<>
+//   	 <a-assets>
+
+//        return {getMappedData(props)};
+           
+//       </a-assets>
+//   </>;
 
 // Room.propTypes = {
 //     classes: Room.PropTypes.string,
@@ -40,5 +77,3 @@ PreloadAssets.defaultProps = {
     title: "RoomName",
     rotation: "0 -130 0",
 };
-
-export default (PreloadAssets);
