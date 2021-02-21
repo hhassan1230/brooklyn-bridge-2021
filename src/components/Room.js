@@ -11,9 +11,13 @@ const Room = (props) => {
             // <a-sky src={props.urlImg} title={props.title} alt={props.title} rotation={props.rotation}></a-sky> 
             <a-sky src={props.id} title={props.title} alt={props.title} rotation={props.rotation}></a-sky> 
         );
+    } else if (props.type == "video") {
+        return (
+            <a-videosphere rotation={props.rotation} src={props.id} title={props.title} alt={props.title} play-on-click="" material="" geometry="" scale=""></a-videosphere>
+        );
     } else {
         return (""
-       
+
         );
     }
 };
@@ -25,6 +29,8 @@ const Room = (props) => {
 //     rotation: Room.PropTypes.string,
 // };
 
+// 
+
 Room.defaultProps = {
     id: '#test',
     color: 'blue',
@@ -32,7 +38,7 @@ Room.defaultProps = {
     type: "photo",
     urlImg: "https://i.ibb.co/RhDdpLG/Ambush-Alley-BKG-20.jpg",
     title: "RoomName",
-    rotation: "0 -130 0",
+    rotation: "0 0 0",
 };
 
 export default (Room);

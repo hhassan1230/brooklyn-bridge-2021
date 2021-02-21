@@ -29,14 +29,14 @@ class App extends React.Component {
 
   // componentWillUnmount() {
   //   clearInterval(this.interval);
-  // }
+  // } 
 
 render(){
   return (
     <div className="App">
 
       <Scene>
-        <PreloadAssets assets={[<img id="1" src="https://i.ibb.co/RhDdpLG/Ambush-Alley-BKG-20.jpg" />, <img id="0" src="https://raw.githubusercontent.com/hhassan1230/PhotoChill/gh-pages/SAM_100_2087.jpg"/>]}/>
+        <PreloadAssets assets={[<img id="1" key="1" src="https://i.ibb.co/RhDdpLG/Ambush-Alley-BKG-20.jpg" />, <img id="0" key="0" src="https://raw.githubusercontent.com/hhassan1230/PhotoChill/gh-pages/SAM_100_2087.jpg"/>, <video id="video" key="video1" autoPlay="" loop="" crossOrigin="anonymous" playsInline="" webkit-playsinline="" src="https://hhassan1230.github.io/PhotoChill/pokemon-center-animated_Mini.mp4"></video>]}/>
         
         <Entity camera look-controls position="0 1.6 0"> 
           <a-entity cursor="fuse:true; fuseTimeout:500" position="0 0 -1" geometry="primitive: ring; radiusInner:0 0.02; radiusOuter:0.03" material="color:blue; shader:flat"> </a-entity>
@@ -45,7 +45,7 @@ render(){
         <Entity light={{type: 'point'}}/>
         <Entity gltf-model={{src: 'virtualcity.gltf'}}/>
 
-        <Room id={"#" + this.state.room.toString()}/>
+        <Room id={"#" + "video"} type="video" />
         <Entity text={{value: 'Hello, WebVR!'}}/>
         <a-cylinder position="0 .75 -2.3" rotation="-90" radius=".3" height=".1" color="#ff65D" onClick={this.handleClick} link="href:https://hessvacio.com"> </a-cylinder>
       </Scene>
