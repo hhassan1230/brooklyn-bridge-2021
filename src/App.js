@@ -1,57 +1,138 @@
-import 'aframe';
-import 'aframe-particle-system-component';
-import {Entity, Scene} from 'aframe-react';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import logo from './logo.svg';
-import Room from './components/Room.js';
-//PreloadAssets
-import PreloadAssets from './components/PreloadAssets.js';
+import React, { useRef, useState, Suspense } from "react";
+//R3F
+import { Canvas, useFrame,  useLoader } from "react-three-fiber";
+// Deai - R3F
+import { softShadows, MeshWobbleMaterial, OrbitControls } from "drei";
+//Components
+import Header from "./components/header";
+import Text from "./components/text";
+import Room from "./components/room";
 
-import './App.css';
+// Styles
+import "./App.scss";
+// React Spring
+import { useSpring, a } from "react-spring/three";
+// import * as THREE from 'three'
+import {TextureLoader, ImageLoader} from 'three'
+// soft Shadows
+softShadows();
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      room: 0
-    };
-  }
+const SpinningMesh = ({ position, color, speed, args }) => {
+  //ref to target the mesh
+  const mesh = useRef();
 
-  handleClick(e) {
-    e.preventDefault();
-    console.log('The link was clicked.');
-  }
+  //useFrame allows us to re-render/update rotation on each frame
+  useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.01));
 
-  // componentDidMount() {
-  //   this.interval = setInterval(() => this.setState({ room: 1}), 3000);
-  // }
-
-  // componentWillUnmount() {
-  //   clearInterval(this.interval);
-  // } 
-
-render(){
+  //Basic expand state
+  const [expand, setExpand] = useState(false);
+  // React spring expand animation
+  const props = useSpring({
+    scale: expand ? [1.4, 1.4, 1.4] : [1, 1, 1],
+  });
   return (
-    <div className="App">
+    <a.mesh
+      position={position}
+      ref={mesh}
+      onClick={() => setExpand(!expand)}
+      scale={props.scale}
+      castShadow>
+      <boxBufferGeometry attach='geometry' args={args} />
+      <MeshWobbleMaterial
+        color={color}
+        speed={speed}
+        attach='material'
+        factor={0.6}
+      />
+    </a.mesh>
 
-      <Scene>
-        <PreloadAssets assets={[<img id="1" key="1" src="https://i.ibb.co/RhDdpLG/Ambush-Alley-BKG-20.jpg" />, <img id="0" key="0" src="https://raw.githubusercontent.com/hhassan1230/PhotoChill/gh-pages/SAM_100_2087.jpg"/>, <video id="video" key="video1" autoPlay="" loop="" crossOrigin="anonymous" playsInline="" webkit-playsinline="" src="https://hhassan1230.github.io/PhotoChill/pokemon-center-animated_Mini.mp4"></video>]}/>
-        
-        <Entity camera look-controls position="0 1.6 0"> 
-          <a-entity cursor="fuse:true; fuseTimeout:500" position="0 0 -1" geometry="primitive: ring; radiusInner:0 0.02; radiusOuter:0.03" material="color:blue; shader:flat"> </a-entity>
-        </Entity>
-
-        <Entity light={{type: 'point'}}/>
-        <Entity gltf-model={{src: 'virtualcity.gltf'}}/>
-
-        <Room id={"#" + "video"} type="video" />
-        <Entity text={{value: 'Hello, WebVR!'}}/>
-        <a-cylinder position="0 .75 -2.3" rotation="-90" radius=".3" height=".1" color="#ff65D" onClick={this.handleClick} link="href:https://hessvacio.com"> </a-cylinder>
-      </Scene>
-    </div>
+    //Using Drei box if you want
+    // <Box {...props} ref={mesh} castShadow>
+    //   <MeshWobbleMaterial
+    //     {...props}
+    //     attach='material'
+    //     factor={0.6}
+    //     Speed={1}
+    //   />
+    // </Box>
   );
-  }
-}
+};
+
+
+
+
+const App = () => {
+  // const Texture = useLoader(TextureLoader, 'https://i.ibb.co/Qdm3FHq/Ambush-Alley-BKG-5.jpg')
+
+  return (
+    <>
+    <Room />
+    </>
+    // <>
+    //   <Header />
+    //   {/* <div id="info">Description</div> */}
+
+    //   {/* Our Scene & Camera is already built into our canvas */}
+    //   <Canvas
+    //     colorManagement
+    //     shadowMap
+    //     camera={{ position: [-5, 2, 10], fov: 60 }}>
+    //     {/* This light makes things look pretty */}
+    //     <ambientLight intensity={0.3} />
+    //     {/* Our main source of light, also casting our shadow */}
+    //     <directionalLight
+    //       castShadow
+    //       position={[0, 10, 0]}
+    //       intensity={1.5}
+    //       shadow-mapSize-width={1024}
+    //       shadow-mapSize-height={1024}
+    //       shadow-camera-far={50}
+    //       shadow-camera-left={-10}
+    //       shadow-camera-right={10}
+    //       shadow-camera-top={10}
+    //       shadow-camera-bottom={-10}
+    //     />
+
+    //     <Suspense fallback={null}>
+    //       <Background source="https://i.ibb.co/Qdm3FHq/Ambush-Alley-BKG-5.jpg" />
+    //     </Suspense>
+    //     {/* A light to help illumnate the spinning boxes */}
+    //     <pointLight position={[-10, 0, -20]} intensity={0.5} />
+    //     <pointLight position={[0, -10, 0]} intensity={1.5} />
+    //     <Suspense fallback={null}>
+    //       <Text
+    //         size={10}
+    //         onClick={e => window.open('https://github.com/react-spring/react-three-fiber/blob/master/whatsnew.md', '_blank')}
+    //         >
+    //         YOOOO
+    //       </Text>
+    //     </Suspense>
+    //     <group>
+
+    //       {/* This mesh is the plane (The floor) */}
+    //       <mesh
+    //         rotation={[-Math.PI / 2, 0, 0]}
+    //         position={[0, -3, 0]}
+    //         receiveShadow>
+
+    //         <planeBufferGeometry attach='geometry' args={[100, 100]} />
+    //         <shadowMaterial attach='material' opacity={0.3} />
+    //       </mesh>
+    //       <SpinningMesh
+    //         position={[0, 1, 0]}
+    //         color='lightblue'
+    //         args={[3, 2, 1]}
+    //         speed={2}
+    //       />
+    //       <SpinningMesh position={[-2, 1, -5]} color='pink' speed={6} />
+    //       <SpinningMesh position={[5, 1, -2]} color='pink' speed={6} />
+    //     </group>
+    //     {/* Allows us to move the canvas around for different prespectives */}
+    //     <OrbitControls />
+    //   </Canvas>
+    // </>
+  
+  );
+};
 
 export default App;
