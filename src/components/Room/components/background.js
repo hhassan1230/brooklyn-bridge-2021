@@ -2,7 +2,7 @@ import React from "react";
 
 import {TextureLoader, BackSide} from 'three'
 import { Canvas, useFrame,  useLoader } from "react-three-fiber";
-
+import { OrbitControls } from 'drei'
 
 function Background(props) {
     console.log(props)
@@ -11,6 +11,7 @@ function Background(props) {
         <mesh>
             <sphereBufferGeometry attach="geometry" args={[500, 60, 40]} />
             <meshBasicMaterial attach="material" map={texture} side={BackSide} />
+            <OrbitControls />
         </mesh>
     )
 }

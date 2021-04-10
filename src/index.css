@@ -26,3 +26,8 @@ canvas {
   height: 100vh;
   overflow: auto;
 }
+
+.interaction{
+  border: 2px solid red;
+
+}

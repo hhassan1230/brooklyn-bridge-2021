@@ -1,32 +1,21 @@
 import React, { Component, useMemo, useRef, useState, Suspense } from "react";
 import { Canvas, useThree, useFrame, useLoader } from "react-three-fiber";
-import { softShadows, MeshWobbleMaterial, OrbitControls } from "drei";
+import { softShadows, MeshWobbleMaterial } from "drei";
 import { useSpring, useTransition, animated, config, a } from 'react-spring/three'
 // import { useDrag } from 'react-use-gesture'
-
+// import '../index.css'
 // import * as THREE from 'three'
 import {MeshBasicMaterial, TextureLoader} from 'three'
 
 // import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
 
-import Background from './background'
-const house = require('../config.json')
+import Background from './components/background';
+import Interaction from './components/interaction'
+
+const house = require('../../config.json')
 const state = {
     currentRoom: 'Entry'
 }
-
-  function Image() {
-    // const texture1 = useLoader(TextureLoader, 'https://i.ibb.co/MBtLk6z/ARROW.png');
-    const texture = useLoader(TextureLoader, 'https://i.ibb.co/MBtLk6z/ARROW.png')
-
-    console.log("texture1", texture)
-    return (
-        <mesh position={[10, 1, -5]}>
-            <planeBufferGeometry attach="geometry" args={[3, 3]} />
-            <meshBasicMaterial attach="material" map={texture} />
-        </mesh>
-    )
-  }
 
 
   const SpinningMesh = ({ position, color, speed, args }) => {
@@ -84,15 +73,14 @@ export default class Room extends Component {
                     <Background background={house.rooms[currentRoom].background} />
                 </Suspense>
                 <Suspense fallback={null}>
-                    <Image />
+                    <Interaction />
                 </Suspense>
-            <SpinningMesh
-                position={[0, 1, 0]}
-                color='lightblue'
-                args={[3, 2, 1]}
-                speed={2}
-            />
-                <OrbitControls />
+              {/* <SpinningMesh
+                  position={[0, 1, 0]}
+                  color='lightblue'
+                  args={[3, 2, 1]}
+                  speed={2}
+              /> */}
             </Canvas>
         )
     }
