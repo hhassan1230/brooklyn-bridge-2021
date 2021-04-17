@@ -6,17 +6,13 @@ import { useSpring, useTransition, animated, config, a } from 'react-spring/thre
 // import '../index.css'
 // import * as THREE from 'three'
 import {MeshBasicMaterial, TextureLoader} from 'three'
-
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import {setNewRoom} from '../../redux/actions/contentActions.js'
 // import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
-
 import Background from './components/background';
 import Interaction from './components/interaction'
-
-const house = require('../../config.json')
-const state = {
-    currentRoom: 'Entry'
-}
-
+const environment = require('../../config.json');
 
   const SpinningMesh = ({ position, color, speed, args }) => {
     //ref to target the mesh
@@ -58,30 +54,39 @@ const state = {
       // </Box>
     );
   };
-export default class Room extends Component {
+class Room extends Component {
     componentDidMount(){
         // console.log(house.rooms[this.state.room].background)
     }
     render(){
-        const {currentRoom} = state;
-        // console.log(this.state)
+        // const {currentRoom} = state;
+        const { content : {currentRoom}} = this.props
+        // console.log(this.props)
         return(
             <Canvas
                 camera={{ position: [-9, 0, 0], fov: 60 }}
             >
                 <Suspense fallback={null}>
-                    <Background background={house.rooms[currentRoom].background} />
+                    <Background room={currentRoom} />
                 </Suspense>
                 <Suspense fallback={null}>
-                    <Interaction />
+                  {environment.rooms[currentRoom].interactions.map((interaction, i) => (
+                    <Interaction key={i} interaction={interaction}/>
+                  ))}
+                  {/* <Interaction /> */}
                 </Suspense>
-              {/* <SpinningMesh
-                  position={[0, 1, 0]}
-                  color='lightblue'
-                  args={[3, 2, 1]}
-                  speed={2}
-              /> */}
             </Canvas>
         )
     }
 }
+
+
+Room.propTypes = {
+  content: PropTypes.object.isRequired,
+}
+
+const mapStateToProps = (state) => ({
+  content: state.content,
+});
+
+export default connect(mapStateToProps, {setNewRoom})(Room);

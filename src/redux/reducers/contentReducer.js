@@ -1,6 +1,7 @@
 
 import { 
-    SET_CURRENT_ROOM
+    SET_CURRENT_ROOM,
+    LOADING_ROOM
  } from '../types';
 
 const initialState = {

@@ -15,7 +15,7 @@ import "./App.scss";
 
 const App = () => {
   // const Texture = useLoader(TextureLoader, 'https://i.ibb.co/Qdm3FHq/Ambush-Alley-BKG-5.jpg')
-
+  // console.log(store)
   return (
     <Provider store={store}>
       <Router>
