@@ -5,7 +5,8 @@ import {
  } from '../types';
 
 const initialState = {
-    currentRoom: 'Entry'
+    currentRoom: 'Entry',
+    loading: false
 }
 
 
@@ -16,8 +17,14 @@ export default function(state = initialState, action){
         case SET_CURRENT_ROOM:
             // console.log("NAMEE", action.payload)
             return {
-                currentRoom: action.payload
+                currentRoom: action.payload,
+                loading: false
             } 
+        case LOADING_ROOM:
+            return{
+                ...state,
+                loading: true
+            }
         default:
             return state;
     }

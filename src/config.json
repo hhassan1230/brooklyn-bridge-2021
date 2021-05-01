@@ -16,24 +16,71 @@
                 "rotation": [-1.5707963267948966, 0, 0],
                 "size": [30, 40],
                 "id": 1,
+                "action": {
+                  "type": "popout"
+                },
                 "display" : {
                   "type": "Image",
                   "source": "https://i.ibb.co/0BSKCkq/Riddle-1-book-front-cover.png"
                 }
               },
               {
-                "roomName": "Entry",
+                "roomName": "MainHall",
                 "type": "Picture",
-                "position": [0, 0, 0],
-                "rotation": [0, 0, 0],
-                "size": [7, 10],
+                "position": [-400, -100, -100],
+                "rotation": [0, 1.2, 0],
+                "size": [30, 40],
                 "id": 1,
+                "action": {
+                  "type": "nav"
+                },
                 "display" : {
                   "type": "Image",
-                  "source": "https://i.ibb.co/THfrtWt/Riddle-1-book-back-cover.png"
+                  "source": "https://i.ibb.co/MBtLk6z/ARROW.png"
                 }
               }
           ]
+      },
+      "MainHall": {
+        "roomName": "MainHall",
+        "background": {
+          "source": "https://i.ibb.co/1sqHyqL/Ambush-Alley-BKG-2.jpg",
+          "loop": null,
+          "type": "Picture"
+        },
+        "adjacentRooms": ["MainHall"],
+        "interactions": [
+            {
+              "roomName": "MainHall",
+              "type": "Picture",
+              "position": [-200, -200, 200],
+              "rotation": [-1.5707963267948966, 0, 0],
+              "size": [30, 40],
+              "id": 1,
+              "action": {
+                "type": "popout"
+              },
+              "display" : {
+                "type": "Image",
+                "source": "https://i.ibb.co/0BSKCkq/Riddle-1-book-front-cover.png"
+              }
+            },
+            {
+              "roomName": "Entry",
+              "type": "Picture",
+              "position": [-400, -100, -100],
+              "rotation": [0, 1.2, 0],
+              "size": [30, 40],
+              "id": 1,
+              "action": {
+                "type": "nav"
+              },
+              "display" : {
+                "type": "Image",
+                "source": "https://i.ibb.co/MBtLk6z/ARROW.png"
+              }
+            }
+        ]
       }
     },
     "settings": {

@@ -8,7 +8,8 @@ import { useSpring, useTransition, animated, config, a } from 'react-spring/thre
 import {MeshBasicMaterial, TextureLoader} from 'three'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {setNewRoom} from '../../redux/actions/contentActions.js'
+import {changeRoom} from '../../redux/actions/contentActions.js'
+import {somethingElse} from '../../redux/actions/contentActions.js'
 // import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
 import Background from './components/background';
 import Interaction from './components/interaction'
@@ -61,7 +62,7 @@ class Room extends Component {
     render(){
         // const {currentRoom} = state;
         const { content : {currentRoom}} = this.props
-        // console.log(this.props)
+        console.log(this.props)
         return(
             <Canvas
                 camera={{ position: [-9, 0, 0], fov: 60 }}
@@ -71,7 +72,7 @@ class Room extends Component {
                 </Suspense>
                 <Suspense fallback={null}>
                   {environment.rooms[currentRoom].interactions.map((interaction, i) => (
-                    <Interaction key={i} interaction={interaction}/>
+                    <Interaction key={i} interaction={interaction} action={interaction.action.type === "nav" ? this.props.changeRoom : this.props.somethingElse}/>
                   ))}
                   {/* <Interaction /> */}
                 </Suspense>
@@ -83,10 +84,17 @@ class Room extends Component {
 
 Room.propTypes = {
   content: PropTypes.object.isRequired,
+  changeRoom: PropTypes.func.isRequired,
+  somethingElse: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
   content: state.content,
 });
 
-export default connect(mapStateToProps, {setNewRoom})(Room);
+const mapActionsToProps = {
+  changeRoom,
+  somethingElse
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(Room);

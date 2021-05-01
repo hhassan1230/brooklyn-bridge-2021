@@ -6,22 +6,20 @@ import {
 import axios from 'axios';
 
 //get all secrets
-export const setNewRoom = (imageUpdated) => (dispatch) => {
-    // console.log("BEIN CALLED");
-    // dispatch( { type: LOADING_DATA });
-    // axios.get('/secrets')
-    // .then((res) => {
-    //     dispatch({
-    //         type: SET_SECRETS,
-    //         payload: res.data
-    //     });
-    //     //imageUpdated parameter is a  true or false 
-    //     if(imageUpdated){ dispatch(updatedImg());}
-    // })
-    // .catch(err => {
-    //     dispatch({
-    //         type: SET_SECRETS,
-    //         payload: []
-    //     });
+export const changeRoom = (roomName) => (dispatch) => {
+    console.log("change room herrr")
+    dispatch( { type: LOADING_ROOM });
+    dispatch({
+        type: SET_CURRENT_ROOM,
+        payload: roomName
+    });
+}
+
+export const somethingElse = () => (dispatch) => {
+    console.log("Something else to do")
+    // dispatch( { type: LOADING_ROOM });
+    // dispatch({
+    //     type: SET_CURRENT_ROOM,
+    //     payload: roomName
     // });
 }
