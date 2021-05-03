@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 
 import {TextureLoader, BackSide} from 'three'
-import { Canvas, useFrame,  useLoader } from "react-three-fiber";
+import { Canvas, useFrame,  useLoader } from "@react-three/fiber";
 import "./style.css"
 import {changeRoom} from "../../../redux/actions/contentActions"
 import PropTypes from 'prop-types';
